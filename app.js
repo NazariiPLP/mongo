@@ -11,8 +11,10 @@ app.get('/', SaladController.getAllSalads);
 app.post('/', SaladController.createSalad);
 // GET http://localhost:5001/:saladId
 app.get('/:saladId', SaladController.getSalad);
-app.put('/:saladId');
-app.delete('/:saladId');
+// PUT http://localhost:5001/:saladId
+app.put('/:saladId', SaladController.updateSalad);
+// DELETE http://localhost:5001/:saladId
+app.delete('/:saladId', SaladController.deleteSalad);
 
 app.use(errorHandler);
 

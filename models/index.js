@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
-const {Schema} = require('mongoose');
+const { Schema } = require('mongoose');
 
 const DB = process.env.DB_NAME || 'fe-test';
 
-mongoose.connect(`mongodb://localhost:27017/${DB}`);
+const start = async () => {
+    await mongoose.connect(`mongodb://localhost:27017/${DB}`);
+}
+start();
 
 const saladSchema = new Schema({
     name: {
@@ -22,7 +25,14 @@ const saladSchema = new Schema({
         type: Date,
         required: true,
         validate: {
-            validator: (value) => value => new Date() 
+            validator: (value) => {
+                if(value >= new Date()) {
+                    return true
+                } 
+                else {
+                    return false
+                }
+            }
             }
         }
     });

@@ -1,1 +1,1 @@
-GET http://localhost:5001/saladId HTTP/1.1
+GET http://localhost:5001/api/salads/saladId HTTP/1.1

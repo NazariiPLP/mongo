@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const { Schema } = require('mongoose');
+const { Schema } = mongoose;
+const Ingredient = require('./Ingredient');
 
 const DB = process.env.DB_NAME || 'fe-test';
 
@@ -8,39 +9,10 @@ const start = async () => {
 }
 start();
 
-const saladSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    },
-    weight: Number,
-    ingredients: {
-        type: Array,
-        required: true
-    },
-    sauce: String,
-    dietType: String,
-    spicy: Boolean,
-    expired: {
-        type: Date,
-        required: true,
-        validate: {
-            validator: (value) => {
-                if(value >= new Date()) {
-                    return true
-                } 
-                else {
-                    return false
-                }
-            }
-            }
-        }
-    });
 
-const Salad = mongoose.model('Salad', saladSchema);
 
 module.exports = {
-    Salad
+    Salad, Ingredient
 }
 
 /*
@@ -54,5 +26,36 @@ sauce - string
 dietType - string
 spicy - boolean
 expired_date - date
+
+*/
+
+
+/*
+
+Салат 1 
+Інгридієнти: ['Капуста', ..........]
+
+Салат 2 
+Інгридієнти: ['Капуста', ..........]
+
+Салат 3
+Інгридієети: ['Капуста', ..........]
+
+
+=======>>>>>>>
+
+Колекція Інгридієнтів
+Інгридієнт 1
+Інгридієнт 2 
+Інгридієнт 3
+Інгридієнт 4
+Інгридієнт 5
+
+
+Колекція Салатів
+
+Салат 1: [...посилаємось на якісь інгридієнти з колекції інгридієнтів....]
+Салат 2: [...посилаємось на якісь інгридієнти з колекції інгридієнтів....]
+Салат 3: [...посилаємось на якісь інгридієнти з колекції інгридієнтів....]
 
 */

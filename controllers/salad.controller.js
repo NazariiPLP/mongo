@@ -2,9 +2,9 @@ const { Salad } = require('../models/index');
 
 module.exports.createSalad = async (req, res, next) => {
     try {
-        const { body } = req;
+        const { body, ingredients } = req;
 
-        const salad = await Salad.create(body);
+        const salad = await Salad.create({ ...body, ingredients });
 
         return res.status(201).send(salad);
     } catch (error) {
@@ -26,7 +26,7 @@ module.exports.getSalad = async (req, res, next) => {
     try {
         const { params: { saladId } } = req;
 
-        const salad = await Salad.findById(saladId);
+        const salad = await Salad.findById(saladId).populate('ingredients');
 
         if(!salad) {
             return res.status(400).send('There is no salad');
